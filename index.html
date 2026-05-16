@@ -15,16 +15,17 @@
 
   <style>
     :root {
-      --primary: #FFD700; /* Amarillo Oro Hiltón */
-      --primary-glow: rgba(255, 215, 0, 0.3);
-      --secondary: #FF8C00; /* Naranja/Amarillo oscuro */
+      --primary: #FFD700;
+      --primary-glow: rgba(255, 215, 0, 0.25);
+      --secondary: #FF8C00;
       --black: #060606;
-      --surface: #0f0f0f;
-      --card: #161616;
-      --white: #ffffff;
-      --gray: #a0a0a0;
-      --border: rgba(255, 215, 0, 0.15);
-      --rs: 4px; /* Bordes más rectos y técnicos */
+      --deep: #0c0c0c;
+      --surface: #111;
+      --card: #181818;
+      --white: #f2f0ea;
+      --gray: rgba(242, 240, 234, 0.45);
+      --border: rgba(255, 255, 255, 0.08);
+      --rs: 12px;
     }
 
     * {
@@ -41,14 +42,16 @@
       font-family: 'Barlow', sans-serif;
       background: var(--black);
       color: var(--white);
-      line-height: 1.6;
+      line-height: 1.65;
       overflow-x: hidden;
     }
 
     .dc {
       font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      line-height: 0.92;
+      letter-spacing: -0.01em;
     }
 
     /* HEADER */
@@ -58,38 +61,13 @@
       left: 0;
       right: 0;
       z-index: 1000;
-      background: rgba(6, 6, 6, 0.98);
-      backdrop-filter: blur(10px);
-      border-bottom: 2px solid var(--primary);
-    }
-
-    .top-bar {
-      display: flex;
-      height: 50px;
-      background: var(--black);
+      background: rgba(6, 6, 6, 0.95);
+      backdrop-filter: blur(15px);
       border-bottom: 1px solid var(--border);
     }
 
-    .top-action {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-decoration: none;
-      color: var(--primary);
-      font-weight: 700;
-      font-size: 12px;
-      gap: 10px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      transition: all 0.3s;
-    }
-
-    .top-action:hover { background: rgba(255, 215, 0, 0.1); }
-    .top-action.active { background: var(--primary); color: var(--black); }
-
     nav {
-      padding: 10px 5%;
+      padding: 15px 5%;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -98,28 +76,51 @@
     .logo {
       font-family: 'Barlow Condensed', sans-serif;
       font-weight: 900;
-      font-size: 28px;
-      color: var(--white);
+      font-size: 32px;
       text-decoration: none;
-      line-height: 0.8;
       display: flex;
-      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      position: relative;
+      margin-bottom: 5px;
     }
 
-    .logo .hilton { color: var(--primary); font-size: 32px; text-shadow: 0 0 10px var(--primary-glow); }
-    .logo .sub { font-size: 10px; letter-spacing: 4px; color: var(--gray); margin-top: 4px; }
+    .logo .white-text { color: var(--white); }
+    .logo .hilton { color: var(--primary); text-shadow: 0 0 20px var(--primary-glow); }
+    
+    .logo::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary), transparent);
+    }
+
+    .seo-keywords {
+      font-size: 8px;
+      color: var(--gray);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-top: 12px;
+      opacity: 0.6;
+      font-weight: 400;
+    }
 
     .nav-links {
       display: flex;
-      gap: 30px;
+      gap: 25px;
       list-style: none;
+      flex: 1;
+      justify-content: center;
     }
 
     .nav-links a {
       text-decoration: none;
       color: var(--gray);
-      font-size: 12px;
-      font-weight: 700;
+      font-size: 11px;
+      font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 1.5px;
       transition: color 0.3s;
@@ -127,49 +128,104 @@
 
     .nav-links a:hover { color: var(--primary); }
 
+    /* HEADER CTA */
+    .ncta {
+      background: var(--primary);
+      color: var(--black);
+      padding: 10px 22px;
+      border-radius: var(--rs);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.3s;
+      white-space: nowrap;
+    }
+
+    .ncta:hover {
+      opacity: 0.9;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px var(--primary-glow);
+    }
+
     /* HERO */
     .hero {
-      padding: 160px 5% 60px;
+      padding: 90px 5% 40px;
       min-height: 100vh;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 40px;
-      align-items: center;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr 0.8fr;
+      grid-template-rows: auto auto auto;
+      gap: 20px 40px;
+      align-items: start;
       justify-content: center;
-      background: 
-        linear-gradient(to bottom, rgba(6,6,6,0.8), rgba(6,6,6,1)),
-        url('https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?q=80&w=2072&auto=format&fit=crop') center/cover;
+      background: #0a0a0a;
+      position: relative;
+      isolation: isolate;
+    }
+
+    .expert-text {
+      grid-column: 2 / 4;
+      grid-row: 1;
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-end;
+      gap: 15px;
+      font-size: 13px;
+      color: var(--white);
+      opacity: 0.8;
+      text-align: right;
+      max-width: 400px;
+      justify-self: end;
+      margin-top: 15px;
+    }
+
+    .expert-text span { line-height: 1.4; }
+
+    .expert-text svg {
+      color: var(--primary);
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: radial-gradient(ellipse 60% 55% at 60% 35%, rgba(255, 215, 0, 0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-stripes {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      background-image: repeating-linear-gradient(-60deg, rgba(255, 215, 0, 0.01) 0px, rgba(255, 215, 0, 0.01) 1px, transparent 1px, transparent 40px);
+    }
+
+    .hero-title {
+      grid-column: 1;
+      grid-row: 1;
+      margin-top: 10px;
     }
 
     .hero-content {
-      flex: 1.2;
-      min-width: 320px;
-      max-width: 700px;
-      position: relative;
-    }
-
-    .hero-content h1 {
-      font-size: clamp(45px, 8vw, 85px);
-      line-height: 0.85;
-      margin-bottom: 25px;
-      text-shadow: 2px 2px 0px rgba(0,0,0,1);
-    }
-
-    .hero-content p {
-      font-size: 18px;
-      color: var(--white);
-      margin-bottom: 35px;
-      max-width: 550px;
-      font-weight: 300;
-      border-left: 4px solid var(--primary);
-      padding-left: 20px;
+      grid-column: 1;
+      grid-row: 2;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
     }
 
     /* COTIZADOR */
     .quotebox {
-      background: rgba(22, 22, 22, 0.95);
+      background: rgba(22, 22, 22, 0.9);
       padding: 35px;
-      border-radius: 4px;
+      border-radius: var(--rs);
       border: 1px solid var(--border);
       box-shadow: 0 30px 60px rgba(0,0,0,0.6);
       position: relative;
@@ -184,22 +240,70 @@
     }
 
     .quotebox h3 {
-      font-size: 26px;
-      margin-bottom: 25px;
+      font-size: 20px;
+      margin-bottom: 20px;
       color: var(--primary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      user-select: none;
+    }
+
+    .quotebox h3::after {
+      content: '▼';
+      font-size: 14px;
+      transition: transform 0.3s;
+      color: var(--primary); /* Triángulo Amarillo */
+    }
+
+    .toggle-hint {
+      font-size: 13px;
+      font-family: 'Barlow Condensed', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 700;
+      color: var(--white);
+      margin-top: -12px;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      opacity: 0.9;
+      pointer-events: none;
+    }
+
+    .toggle-hint i { 
+      color: var(--primary); 
+      font-style: normal; 
+      font-size: 16px; 
+      filter: drop-shadow(0 0 5px var(--primary-glow));
+    }
+
+    .quotebox.expanded h3::after {
+      transform: rotate(180deg);
     }
 
     .service-list {
       display: grid;
-      gap: 10px;
-      margin-bottom: 30px;
+      gap: 8px;
+      margin-bottom: 20px;
+      max-height: 250px;
+      overflow-y: auto;
+      transition: all 0.4s ease;
+      padding-right: 5px;
     }
+
+    /* Custom Scrollbar for Service List */
+    .service-list::-webkit-scrollbar { width: 4px; }
+    .service-list::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); }
+    .service-list::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
 
     .service-item {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 14px 18px;
+      padding: 10px 18px;
       background: rgba(255,255,255,0.03);
       border: 1px solid rgba(255,255,255,0.05);
       transition: all 0.2s;
@@ -223,9 +327,9 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding-top: 25px;
+      padding-top: 15px;
       border-top: 1px dashed var(--border);
-      margin-bottom: 30px;
+      margin-bottom: 20px;
     }
 
     .total-label { font-size: 12px; text-transform: uppercase; letter-spacing: 2px; color: var(--gray); }
@@ -234,8 +338,9 @@
     .btn-quote {
       display: block;
       width: 100%;
-      padding: 22px;
-      background: var(--primary);
+      padding: 18px;
+      border-radius: 50px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
       color: var(--black);
       text-align: center;
       text-decoration: none;
@@ -251,23 +356,36 @@
 
     /* VIDEO & MASCOT */
     .video-col {
-      flex: 1;
-      min-width: 300px;
+      grid-column: 2;
+      grid-row: 2;
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 30px;
+      align-items: flex-start;
+      justify-content: center;
+      position: relative;
+      padding-top: 10px;
+    }
+
+    .mascot-col {
+      grid-column: 3;
+      grid-row: 2;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      position: relative;
+      padding-top: 10px;
     }
 
     .video-wrapper {
       width: 100%;
-      max-width: 320px;
+      max-width: 260px;
       aspect-ratio: 9/16;
       background: #000;
-      border-radius: 12px;
+      border-radius: 18px;
       overflow: hidden;
-      border: 4px solid var(--card);
-      box-shadow: 0 40px 80px rgba(0,0,0,0.8);
+      box-shadow: 
+        0 0 0 1px rgba(255, 215, 0, 0.2),
+        0 20px 60px rgba(0,0,0,0.6),
+        0 0 50px rgba(255, 215, 0, 0.1);
       position: relative;
     }
 
@@ -275,29 +393,42 @@
 
     .mascot-container {
       width: 100%;
-      max-width: 250px;
-      margin-top: -50px;
+      max-width: 380px;
       position: relative;
       z-index: 10;
-      filter: drop-shadow(0 20px 30px rgba(0,0,0,0.5));
+      transition: transform 0.3s ease;
+      mix-blend-mode: screen; /* Perfect blending for black-bg image */
     }
 
-    .mascot-container img { width: 100%; height: auto; }
+    .mascot-container:hover {
+      transform: translateY(-5px) scale(1.02);
+    }
 
-    /* STATS BAR */
-    .stats-bar {
-      background: var(--primary);
-      padding: 50px 5%;
+    .mascot-container img { 
+      width: 100%; 
+      height: auto;
+      filter: drop-shadow(0 20px 40px rgba(0,0,0,0.5));
+    }
+
+    /* STATS BAR HERO */
+    .stats-bar-hero {
+      grid-column: 1 / -1;
       display: flex;
-      justify-content: space-around;
-      flex-wrap: wrap;
-      gap: 40px;
-      color: var(--black);
+      justify-content: center;
+      gap: 60px;
+      padding-top: 40px;
+      margin-top: 20px;
+      border-top: 1px solid var(--border);
+      width: 100%;
     }
 
-    .stat-item { text-align: center; }
-    .stat-num { font-size: 56px; font-weight: 900; line-height: 1; }
-    .stat-lbl { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; opacity: 0.8; }
+    .stat-item-hero { text-align: center; }
+    .stat-item-hero .stat-num { font-size: 40px; font-weight: 900; line-height: 1; color: var(--white); }
+    .stat-item-hero .stat-num span { color: var(--primary); }
+    .stat-item-hero .stat-lbl { font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--gray); margin-top: 5px; }
+
+    /* OLD STATS BAR REMOVAL */
+    .stats-bar { display: none; }
 
     /* SERVICES GRID */
     .services-section { padding: 120px 5%; background: var(--black); }
@@ -317,6 +448,7 @@
       transition: all 0.4s;
       border: 1px solid transparent;
       position: relative;
+      border-radius: var(--rs);
     }
 
     .service-card:hover { 
@@ -374,11 +506,110 @@
       border-top: 1px solid rgba(255,255,255,0.05);
     }
 
+    /* WHATSAPP FLOAT TRANSFORMED */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background-color: #25d366;
+      color: #FFF;
+      border-radius: 50px;
+      padding: 15px 30px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      box-shadow: 0 15px 35px rgba(37, 211, 102, 0.5);
+      z-index: 1000;
+      transition: all 0.3s;
+      text-decoration: none;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-size: 16px;
+    }
+
+    .whatsapp-float:hover { transform: translateY(-5px) scale(1.05); }
+    .whatsapp-float img { width: 28px; height: 28px; }
+    
+    .whatsapp-float::before {
+      content: '';
+      position: absolute;
+      width: 100%; height: 100%;
+      background: inherit;
+      border-radius: inherit;
+      z-index: -1;
+      animation: pulseWa 2s infinite;
+    }
+
+    @keyframes pulseWa {
+      0% { transform: scale(1); opacity: 0.5; }
+      100% { transform: scale(1.6); opacity: 0; }
+    }
+
+    /* CTA POINTER */
+    .cta-pointer {
+      position: absolute;
+      left: -120px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      z-index: 100;
+    }
+
+    .cta-pointer.active {
+      opacity: 1;
+      left: -40px;
+    }
+
+    .cta-pointer span {
+      background: var(--primary);
+      color: var(--black);
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 900;
+      font-size: 16px;
+      white-space: nowrap;
+      box-shadow: 0 15px 30px var(--primary-glow);
+    }
+
+    .cta-pointer svg {
+      width: 80px;
+      height: 40px;
+      color: var(--primary);
+      filter: drop-shadow(0 0 10px var(--primary-glow));
+      animation: pointMove 1s infinite alternate;
+    }
+
+    @keyframes pointMove {
+      from { transform: translateX(0); }
+      to { transform: translateX(15px); }
+    }
+
     /* RESPONSIVE */
     @media (max-width: 900px) {
-      .hero { padding-top: 140px; flex-direction: column; text-align: center; }
+      .cta-pointer {
+        left: 50%;
+        top: -60px;
+        transform: translateX(-50%) rotate(90deg);
+        flex-direction: row-reverse;
+      }
+      .cta-pointer.active {
+        left: 50%;
+        top: -80px;
+      }
+      .hero { padding-top: 120px; display: flex; flex-direction: column; text-align: center; }
+      .expert-text { grid-column: auto; grid-row: auto; justify-content: center; }
+      .logo { font-size: 28px; justify-content: center; }
       .hero-content p { border: none; padding: 0; }
-      .mascot-container { margin-top: 20px; }
+      .mascot-container { margin-top: 20px; max-width: 200px; }
+      .mascot-col { order: 2; }
+      .video-col { order: 3; }
       .footer-grid { text-align: center; }
     }
   </style>
@@ -387,38 +618,49 @@
 <body>
 
   <header>
-    <div class="top-bar">
-      <a href="tel:972048074" class="top-action dc">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79a15.15 15.15 0 006.59 6.59l2.2-2.2a1 1 0 011.11-.27 11.72 11.72 0 003.7.59 1 1 0 011 1V20a1 1 0 01-1 1A19 19 0 013 4a1 1 0 011-1h3.41a1 1 0 011 1 11.72 11.72 0 00.59 3.7 1 1 0 01-.27 1.11l-2.2 2.2z"/></svg>
-        Llamada Directa
-      </a>
-      <a href="https://wa.me/51972048074" class="top-action dc active">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0012.04 2m.01 1.67c2.2 0 4.26.86 5.82 2.42 1.56 1.56 2.41 3.63 2.41 5.83 0 4.54-3.7 8.23-8.24 8.23-1.48 0-2.93-.39-4.19-1.15l-.3-.17-3.12.82.83-3.04-.19-.3a8.132 8.132 0 01-1.26-4.38c.01-4.54 3.7-8.24 8.24-8.24m-3.53 4.75c-.19 0-.51.07-.78.37-.27.3-1.03 1.01-1.03 2.45s1.05 2.83 1.2 3.01c.15.19 2.07 3.15 5.01 4.42.7.3 1.25.48 1.67.61.7.22 1.34.19 1.84.11.56-.08 1.72-.7 1.97-1.38.25-.67.25-1.25.18-1.38-.07-.13-.27-.2-.57-.35-.3-.15-1.78-.88-2.05-.98-.28-.1-.48-.15-.68.15s-.78.98-.95 1.18c-.17.2-.35.23-.65.08-.3-.15-1.29-.48-2.45-1.52-.91-.81-1.52-1.81-1.7-2.11-.18-.3-.02-.47.13-.61.14-.13.3-.35.45-.53.15-.17.2-.3.3-.5.1-.2.05-.38-.02-.53-.07-.15-.68-1.63-.93-2.24-.24-.61-.51-.53-.68-.53z"/></svg>
-        WhatsApp SJL
-      </a>
-    </div>
     <nav>
-      <a href="#" class="logo dc">
-        <span class="hilton">HILTÓN</span>
-        <span class="sub">AUTOMOTRIZ</span>
-      </a>
+      <div style="display: flex; flex-direction: column; min-width: 250px;">
+        <a href="#" class="logo dc">
+          <span class="white-text">AUTOMOTRIZ</span> <span class="hilton">HILTÓN</span>
+        </a>
+        <div class="seo-keywords">
+          Mecánica General • Electrónica • Repuestos • Scaneo
+        </div>
+      </div>
       <ul class="nav-links">
         <li><a href="#hero">Inicio</a></li>
         <li><a href="#servicios">Servicios</a></li>
-        <li><a href="#nosotros">Nosotros</a></li>
+        <li><a href="#servicios">Clientes</a></li>
         <li><a href="#contacto">Contacto</a></li>
       </ul>
+      <div style="min-width: 200px; display: flex; justify-content: flex-end;">
+        <a href="#quotation-tool" class="ncta dc" id="nav-quote-btn">Cotizar Precios de Servicios</a>
+      </div>
     </nav>
   </header>
 
   <section class="hero" id="hero">
-    <div class="hero-content">
-      <h1 class="dc">MECÁNICA DE <span style="color:var(--primary)">ALTO NIVEL</span></h1>
-      <p>Expertos en electrónica automotriz y mecánica general. Tecnología de punta para que tu auto rinda como nuevo.</p>
-      
-      <div class="quotebox">
-        <h3 class="dc">Cotizador Web</h3>
-        <div class="service-list">
+    <div class="hero-stripes"></div>
+    <div class="expert-text dc">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+      <span>Expertos en electrónica automotriz y mecánica general.<br>Tecnología de punta para que tu auto rinda como nuevo.</span>
+    </div>
+    <div class="hero-title">
+      <h1 class="dc" style="font-size: clamp(30px, 4vw, 55px); white-space: nowrap;">
+        MECÁNICA DE ALTO <span id="rotate" style="color:var(--primary); text-shadow: 0 0 20px var(--primary-glow);">NIVEL</span>
+      </h1>
+    </div>
+    <div class="hero-content" style="position: relative;">
+      <div id="cta-pointer" class="cta-pointer">
+        <span class="dc">COTIZA AQUÍ</span>
+        <svg viewBox="0 0 100 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 20H85M85 20L70 5M85 20L70 35" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="quotebox expanded" id="quotation-tool">
+        <h3 class="dc" id="toggle-services">COTIZADOR DE PRECIOS POR SERVICIOS</h3>
+        <p class="toggle-hint dc"><i>→</i> Dale clic al triángulo amarillo para ver el abanico de servicios <i>☝</i></p>
+        <div class="service-list" id="service-list">
           <label class="service-item">
             <input type="checkbox" data-price="437" class="svc-check">
             <div class="service-info">
@@ -447,6 +689,34 @@
               <span class="service-price">S/ 120</span>
             </div>
           </label>
+          <label class="service-item">
+            <input type="checkbox" data-price="180" class="svc-check">
+            <div class="service-info">
+              <span class="service-name">Revisión de Frenos</span>
+              <span class="service-price">S/ 180</span>
+            </div>
+          </label>
+          <label class="service-item">
+            <input type="checkbox" data-price="250" class="svc-check">
+            <div class="service-info">
+              <span class="service-name">Suspensión y Dirección</span>
+              <span class="service-price">S/ 250</span>
+            </div>
+          </label>
+          <label class="service-item">
+            <input type="checkbox" data-price="100" class="svc-check">
+            <div class="service-info">
+              <span class="service-name">Sistema Eléctrico</span>
+              <span class="service-price">S/ 100</span>
+            </div>
+          </label>
+          <label class="service-item">
+            <input type="checkbox" data-price="350" class="svc-check">
+            <div class="service-info">
+              <span class="service-name">Planchado y Pintura</span>
+              <span class="service-price">S/ 350</span>
+            </div>
+          </label>
         </div>
         
         <div class="quote-total">
@@ -464,12 +734,34 @@
           <source src="https://assets.mixkit.co/videos/preview/mixkit-car-mechanic-working-on-a-car-engine-4364-large.mp4" type="video/mp4">
         </video>
       </div>
+    </div>
+
+    <div class="mascot-col">
       <div class="mascot-container">
-        <!-- Reintegrando al perrito mecánico para dar "vida" -->
-        <img src="./images/perrito-mecanico.png" alt="Mascota Hilton" onerror="this.style.display='none'">
+        <img src="./images/hilton-mascot-v4.png" alt="Mascota Hilton" onerror="this.style.display='none'">
+      </div>
+    </div>
+    
+    <div class="stats-bar-hero">
+      <div class="stat-item-hero">
+        <div class="stat-num dc">10<span>+</span></div>
+        <div class="stat-lbl">Años de Trayectoria</div>
+      </div>
+      <div class="stat-item-hero">
+        <div class="stat-num dc">1.5<span>K</span></div>
+        <div class="stat-lbl">Clientes Satisfechos</div>
+      </div>
+      <div class="stat-item-hero">
+        <div class="stat-num dc">24<span>V</span></div>
+        <div class="stat-lbl">Scaneo Multimarca</div>
       </div>
     </div>
   </section>
+
+  <a href="#quotation-tool" class="whatsapp-float" id="float-wa-btn">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+    <span>COTIZA NUESTROS SERVICIOS</span>
+  </a>
 
   <div class="stats-bar">
     <div class="stat-item">
@@ -531,9 +823,8 @@
   <footer id="contacto">
     <div class="footer-grid">
       <div class="footer-info">
-        <a href="#" class="logo dc" style="margin-bottom: 25px;">
-          <span class="hilton">HILTÓN</span>
-          <span class="sub">AUTOMOTRIZ</span>
+        <a href="#" class="logo dc" style="margin-bottom: 25px; font-size: 28px;">
+          <span class="hilton">AUTOMOTRIZ HILTÓN</span>
         </a>
         <p>Pasión por la mecánica, compromiso con tu seguridad.</p>
         <p><strong>SJL:</strong> Av. 13 de Enero 2483, San Juan de Lurigancho.</p>
@@ -560,15 +851,19 @@
   </footer>
 
   <script>
-    const checkboxes = document.querySelectorAll('.svc-check');
+    // Cotizador Logic
+    const checks = document.querySelectorAll('.svc-check');
     const totalDisplay = document.getElementById('total-price');
-    const waButton = document.getElementById('send-wa');
+    const waBtn = document.getElementById('send-wa');
+    const toggleBtn = document.getElementById('toggle-services');
+    const quotebox = document.querySelector('.quotebox');
+    const serviceList = document.getElementById('service-list');
 
     function updateTotal() {
       let total = 0;
       let selectedServices = [];
       
-      checkboxes.forEach(cb => {
+      checks.forEach(cb => {
         if (cb.checked) {
           total += parseInt(cb.getAttribute('data-price'));
           selectedServices.push(cb.closest('.service-item').querySelector('.service-name').innerText);
@@ -576,23 +871,81 @@
       });
 
       totalDisplay.innerText = `S/ ${total}`;
-
+      
+      // Update WA Link message
       if (selectedServices.length > 0) {
         const message = encodeURIComponent(
           `¡Hola Automotriz Hiltón! 👋\n\nHe cotizado estos servicios en su web:\n\n` + 
           selectedServices.map(s => `✅ ${s}`).join('\n') + 
           `\n\n*Total Estimado: S/ ${total}*\n\n¿Me podrían dar una cita?`
         );
-        waButton.href = `https://wa.me/51972048074?text=${message}`;
+        waBtn.onclick = (e) => {
+          e.preventDefault();
+          window.open(`https://wa.me/51972048074?text=${message}`);
+        };
       } else {
-        waButton.href = "https://wa.me/51972048074?text=" + encodeURIComponent("¡Hola Automotriz Hiltón! 👋 Quisiera información sobre sus servicios.");
+        waBtn.onclick = (e) => {
+          e.preventDefault();
+          window.open("https://wa.me/51972048074?text=" + encodeURIComponent("¡Hola Automotriz Hiltón! 👋 Quisiera información sobre sus servicios."));
+        };
       }
     }
 
-    checkboxes.forEach(cb => {
-      cb.addEventListener('change', updateTotal);
+    checks.forEach(cb => cb.addEventListener('change', updateTotal));
+
+    // Toggle Services Accordion
+    toggleBtn.addEventListener('click', () => {
+      quotebox.classList.toggle('expanded');
+      if (quotebox.classList.contains('expanded')) {
+        serviceList.style.maxHeight = "250px";
+        serviceList.style.opacity = "1";
+        serviceList.style.pointerEvents = "all";
+      } else {
+        serviceList.style.maxHeight = "0";
+        serviceList.style.opacity = "0";
+        serviceList.style.pointerEvents = "none";
+      }
     });
 
+    // CTA Buttons logic: Scroll and Expand
+    const navQuoteBtn = document.getElementById('nav-quote-btn');
+    const floatWaBtn = document.getElementById('float-wa-btn');
+    const ctaPointer = document.getElementById('cta-pointer');
+
+    function handleCtaClick(e) {
+      // Expand if closed
+      if (!quotebox.classList.contains('expanded')) {
+        toggleBtn.click();
+      }
+      
+      // Show pointer
+      ctaPointer.classList.add('active');
+      
+      // Hide after 5 seconds
+      setTimeout(() => {
+        ctaPointer.classList.remove('active');
+      }, 5000);
+    }
+
+    navQuoteBtn.addEventListener('click', handleCtaClick);
+    floatWaBtn.addEventListener('click', handleCtaClick);
+
+    // Rotating text logic
+    const words = ["NIVEL", "PRESTIGIO", "CALIDAD", "CONFIANZA", "GARANTÍA"];
+    let i = 0;
+    const rotateElem = document.getElementById('rotate');
+    rotateElem.style.transition = "opacity 0.5s ease-in-out";
+
+    setInterval(() => {
+      rotateElem.style.opacity = 0;
+      setTimeout(() => {
+        i = (i + 1) % words.length;
+        rotateElem.innerText = words[i];
+        rotateElem.style.opacity = 1;
+      }, 500);
+    }, 3000);
+
+    // Initial call
     updateTotal();
   </script>
 
