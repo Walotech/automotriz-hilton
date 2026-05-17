@@ -11,7 +11,7 @@
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;600;700;900&family=Barlow+Condensed:wght@700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Montserrat:wght@900&display=swap" rel="stylesheet">
 
   <style>
     :root {
@@ -39,19 +39,19 @@
     }
 
     body {
-      font-family: 'Barlow', sans-serif;
+      font-family: 'Inter', sans-serif;
       background: var(--black);
       color: var(--white);
-      line-height: 1.65;
+      line-height: 1.6;
       overflow-x: hidden;
     }
 
     .dc {
-      font-family: 'Barlow Condensed', sans-serif;
+      font-family: 'Inter', sans-serif;
       font-weight: 900;
       text-transform: uppercase;
-      line-height: 0.92;
-      letter-spacing: -0.01em;
+      line-height: 0.9;
+      letter-spacing: -0.05em;
     }
 
     /* HEADER */
@@ -74,15 +74,16 @@
     }
 
     .logo {
-      font-family: 'Barlow Condensed', sans-serif;
+      font-family: 'Inter', sans-serif;
       font-weight: 900;
-      font-size: 32px;
+      font-size: 30px;
       text-decoration: none;
       display: flex;
       align-items: center;
       gap: 10px;
       position: relative;
       margin-bottom: 5px;
+      letter-spacing: -0.03em;
     }
 
     .logo .white-text { color: var(--white); }
@@ -119,11 +120,11 @@
     .nav-links a {
       text-decoration: none;
       color: var(--gray);
-      font-size: 11px;
-      font-weight: 600;
+      font-size: 10px;
+      font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 1.5px;
-      transition: color 0.3s;
+      letter-spacing: 0.12em;
+      transition: all 0.3s;
     }
 
     .nav-links a:hover { color: var(--primary); }
@@ -141,6 +142,7 @@
       text-decoration: none;
       transition: all 0.3s;
       white-space: nowrap;
+      letter-spacing: 0.05em;
     }
 
     .ncta:hover {
@@ -159,7 +161,9 @@
       gap: 20px 40px;
       align-items: start;
       justify-content: center;
-      background: #0a0a0a;
+      background: linear-gradient(rgba(6, 6, 6, 0.7), rgba(6, 6, 6, 0.9)), url('./images/taller-hilton-fachada.jpg');
+      background-size: cover;
+      background-position: center;
       position: relative;
       isolation: isolate;
     }
@@ -171,13 +175,16 @@
       align-items: flex-start;
       justify-content: flex-end;
       gap: 15px;
-      font-size: 13px;
-      color: var(--white);
-      opacity: 0.8;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #FFFFFF;
       text-align: right;
-      max-width: 400px;
+      max-width: 450px;
       justify-self: end;
       margin-top: 15px;
+      line-height: 1.5;
     }
 
     .expert-text span { line-height: 1.4; }
@@ -641,7 +648,7 @@
 
   <section class="hero" id="hero">
     <div class="hero-stripes"></div>
-    <div class="expert-text dc">
+    <div class="expert-text">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
       <span>Expertos en electrónica automotriz y mecánica general.<br>Tecnología de punta para que tu auto rinda como nuevo.</span>
     </div>
@@ -738,7 +745,7 @@
 
     <div class="mascot-col">
       <div class="mascot-container">
-        <img src="./images/hilton-mascot-v4.png" alt="Mascota Hilton" onerror="this.style.display='none'">
+        <img src="./images/hilton-mascot-v5.png" alt="Mascota Hilton" onerror="this.style.display='none'">
       </div>
     </div>
     
