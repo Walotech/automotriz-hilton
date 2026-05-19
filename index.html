@@ -129,6 +129,82 @@
 
     .nav-links a:hover { color: var(--primary); }
 
+    /* NAV DROPDOWN */
+    .dropdown {
+      position: relative;
+    }
+    
+    .nav-item-wrap {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+    }
+    
+    .nav-triangle {
+      font-size: 7px;
+      color: var(--gray);
+      transition: transform 0.35s, color 0.3s;
+      pointer-events: none;
+      display: inline-block;
+      margin-top: 1px;
+    }
+    
+    .dropdown:hover .nav-triangle {
+      color: var(--primary);
+      transform: rotate(180deg);
+    }
+    
+    .dropdown-menu {
+      position: absolute;
+      top: calc(100% + 15px);
+      left: 50%;
+      transform: translateX(-50%) translateY(10px);
+      width: 230px;
+      background: rgba(10, 10, 10, 0.98);
+      backdrop-filter: blur(15px);
+      border: 1px solid var(--border);
+      border-radius: var(--rs);
+      padding: 12px;
+      list-style: none;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 1000;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.7), 0 0 20px rgba(255, 215, 0, 0.05);
+    }
+    
+    .dropdown:hover .dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(0);
+    }
+    
+    .dropdown-menu li {
+      width: 100%;
+      margin: 0;
+    }
+    
+    .dropdown-menu a {
+      display: block;
+      font-size: 11px;
+      color: var(--gray) !important;
+      text-decoration: none;
+      padding: 8px 12px;
+      border-radius: 4px;
+      transition: all 0.2s;
+      text-align: left;
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+    
+    .dropdown-menu a:hover {
+      background: rgba(255, 215, 0, 0.08) !important;
+      color: var(--primary) !important;
+      padding-left: 16px;
+    }
+
     /* HEADER CTA */
     .ncta {
       background: var(--primary);
@@ -156,7 +232,7 @@
       padding: 90px 5% 40px;
       min-height: 100vh;
       display: grid;
-      grid-template-columns: 1.2fr 1fr 0.8fr;
+      grid-template-columns: minmax(auto, 510px) 260px minmax(auto, 340px);
       grid-template-rows: auto auto auto;
       gap: 20px 40px;
       align-items: start;
@@ -169,7 +245,7 @@
     }
 
     .expert-text {
-      grid-column: 2 / 4;
+      grid-column: 3;
       grid-row: 1;
       display: flex;
       align-items: flex-start;
@@ -181,10 +257,11 @@
       letter-spacing: 0.08em;
       color: #FFFFFF;
       text-align: right;
-      max-width: 450px;
+      max-width: 320px;
       justify-self: end;
       margin-top: 15px;
       line-height: 1.5;
+      z-index: 15;
     }
 
     .expert-text span { line-height: 1.4; }
@@ -287,10 +364,7 @@
       filter: drop-shadow(0 0 5px var(--primary-glow));
     }
 
-    .quotebox.expanded h3::after {
-      transform: rotate(180deg);
-    }
-
+    /* By default, cotizador is fully visible (desktop) */
     .service-list {
       display: grid;
       gap: 8px;
@@ -299,6 +373,49 @@
       overflow-y: auto;
       transition: all 0.4s ease;
       padding-right: 5px;
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    /* DESKTOP COTIZADOR SIEMPRE EXPANDIDO */
+    @media (min-width: 901px) {
+      .service-list {
+        max-height: 250px !important;
+        opacity: 1 !important;
+        pointer-events: all !important;
+      }
+      .quotebox h3::after {
+        display: none !important;
+      }
+      .toggle-hint {
+        display: none !important;
+      }
+    }
+
+    /* MOBILE ACCORDION STYLING */
+    @media (max-width: 900px) {
+      .service-list {
+        max-height: 0;
+        opacity: 0;
+        pointer-events: none;
+        margin-bottom: 0;
+        transition: all 0.4s ease;
+      }
+      .quotebox.expanded .service-list {
+        max-height: 250px;
+        opacity: 1;
+        pointer-events: all;
+        margin-bottom: 20px;
+      }
+      .quotebox h3::after {
+        content: '▼';
+        font-size: 14px;
+        transition: transform 0.3s;
+        color: var(--primary);
+      }
+      .quotebox.expanded h3::after {
+        transform: rotate(180deg);
+      }
     }
 
     /* Custom Scrollbar for Service List */
@@ -330,17 +447,24 @@
     .service-name { font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; }
     .service-price { color: var(--primary); font-weight: 900; font-family: 'Barlow Condensed'; font-size: 18px; }
 
-    .quote-total {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-top: 15px;
-      border-top: 1px dashed var(--border);
+    .quote-info-note {
+      padding: 12px 18px;
+      border: 1px dashed var(--primary-glow);
+      border-radius: 8px;
+      background: rgba(255, 215, 0, 0.02);
+      margin-top: 10px;
       margin-bottom: 20px;
+      text-align: center;
     }
 
-    .total-label { font-size: 12px; text-transform: uppercase; letter-spacing: 2px; color: var(--gray); }
-    .total-amount { font-size: 38px; font-weight: 900; color: var(--primary); text-shadow: 0 0 15px var(--primary-glow); }
+    .quote-info-note span {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--gray);
+      line-height: 1.5;
+      font-weight: 600;
+    }
 
     .btn-quote {
       display: block;
@@ -396,7 +520,13 @@
       position: relative;
     }
 
-    .video-wrapper video { width: 100%; height: 100%; object-fit: cover; }
+    .video-wrapper video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: scale(1.22);
+      transform-origin: center 80%;
+    }
 
     .mascot-container {
       width: 100%;
@@ -598,6 +728,184 @@
       to { transform: translateX(15px); }
     }
 
+    /* GALERÍA DE TRABAJOS REALES */
+    .gallery-section {
+      padding: 120px 5% 80px;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 50px;
+      justify-content: center;
+    }
+    .gallery-card {
+      background: var(--card);
+      border-radius: var(--rs);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      max-width: 450px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .gallery-card:hover {
+      transform: translateY(-10px);
+      border-color: var(--primary);
+      box-shadow: 0 20px 40px rgba(255, 215, 0, 0.12);
+    }
+    .gallery-img-wrapper {
+      width: 100%;
+      aspect-ratio: 9/13;
+      overflow: hidden;
+      position: relative;
+    }
+    .gallery-img-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+    .gallery-card:hover .gallery-img-wrapper img {
+      transform: scale(1.04);
+    }
+    .gallery-badge {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background: var(--primary);
+      color: var(--black);
+      padding: 6px 14px;
+      border-radius: 50px;
+      font-weight: 800;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+      z-index: 2;
+    }
+    .gallery-info {
+      padding: 25px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .gallery-info h4 {
+      font-size: 18px;
+      color: var(--white);
+      text-transform: uppercase;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+    }
+    .gallery-info p {
+      font-size: 14px;
+      color: var(--gray);
+      font-weight: 300;
+      line-height: 1.5;
+    }
+
+    /* TESTIMONIALS SECTION */
+    .testimonials-section {
+      padding: 120px 5% 80px;
+      background: var(--black);
+      border-top: 1px solid var(--border);
+      position: relative;
+    }
+    
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 50px;
+      justify-content: center;
+    }
+    
+    .testimonial-card {
+      background: var(--card);
+      border-radius: var(--rs);
+      border: 1px solid var(--border);
+      padding: 35px;
+      transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      max-width: 450px;
+      margin: 0 auto;
+      width: 100%;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+    
+    .testimonial-card:hover {
+      transform: translateY(-10px);
+      border-color: var(--primary);
+      box-shadow: 0 20px 40px rgba(255, 215, 0, 0.1);
+    }
+    
+    .testimonial-stars {
+      color: var(--primary);
+      font-size: 18px;
+      margin-bottom: 20px;
+      text-shadow: 0 0 10px var(--primary-glow);
+    }
+    
+    .testimonial-text {
+      font-size: 15px;
+      color: var(--gray);
+      line-height: 1.6;
+      font-style: italic;
+      margin-bottom: 25px;
+      font-weight: 300;
+    }
+    
+    .testimonial-profile {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    
+    .testimonial-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: var(--black);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 16px;
+      border: 2px solid var(--primary);
+      box-shadow: 0 5px 15px rgba(255, 215, 0, 0.2);
+    }
+    
+    .testimonial-meta {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .testimonial-author {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--white);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .testimonial-vehicle {
+      font-size: 11px;
+      color: var(--primary);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 3px;
+    }
+
     /* RESPONSIVE */
     @media (max-width: 900px) {
       .cta-pointer {
@@ -610,13 +918,15 @@
         left: 50%;
         top: -80px;
       }
-      .hero { padding-top: 120px; display: flex; flex-direction: column; text-align: center; }
-      .expert-text { grid-column: auto; grid-row: auto; justify-content: center; }
-      .logo { font-size: 28px; justify-content: center; }
+      .hero { padding-top: 120px; display: flex; flex-direction: column; text-align: center; align-items: center; }
+      .expert-text { order: 1; grid-column: auto; grid-row: auto; justify-content: center; }
+      .hero-title { order: 2; }
+      .hero-content { order: 3; }
       .hero-content p { border: none; padding: 0; }
-      .mascot-container { margin-top: 20px; max-width: 200px; }
-      .mascot-col { order: 2; }
-      .video-col { order: 3; }
+      .video-col { order: 4; margin-top: 30px; width: 100%; max-width: 280px; display: flex; justify-content: center; }
+      .stats-bar-hero { order: 5; margin-top: 40px; width: 100%; }
+      .mascot-col { display: none; }
+      .logo { font-size: 28px; justify-content: center; }
       .footer-grid { text-align: center; }
     }
   </style>
@@ -636,8 +946,21 @@
       </div>
       <ul class="nav-links">
         <li><a href="#hero">Inicio</a></li>
-        <li><a href="#servicios">Servicios</a></li>
-        <li><a href="#servicios">Clientes</a></li>
+        <li class="dropdown">
+          <div class="nav-item-wrap">
+            <a href="#servicios">Servicios</a>
+            <span class="nav-triangle">▼</span>
+          </div>
+          <ul class="dropdown-menu">
+            <li><a href="#servicios">Mecánica General</a></li>
+            <li><a href="#servicios">Electrónica Automotriz</a></li>
+            <li><a href="#servicios">Cambio de Aceite</a></li>
+            <li><a href="#servicios">Scanner Computarizado</a></li>
+            <li><a href="#servicios">Limpieza de Inyectores</a></li>
+            <li><a href="#servicios">Planchado y Pintura</a></li>
+          </ul>
+        </li>
+        <li><a href="#clientes">Clientes</a></li>
         <li><a href="#contacto">Contacto</a></li>
       </ul>
       <div style="min-width: 200px; display: flex; justify-content: flex-end;">
@@ -649,8 +972,8 @@
   <section class="hero" id="hero">
     <div class="hero-stripes"></div>
     <div class="expert-text">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-      <span>Expertos en electrónica automotriz y mecánica general.<br>Tecnología de punta para que tu auto rinda como nuevo.</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="margin-top: 3px;"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+      <span>Expertos en electrónica automotriz<br>y mecánica general multimarca.<br>Tecnología de punta para tu auto.</span>
     </div>
     <div class="hero-title">
       <h1 class="dc" style="font-size: clamp(30px, 4vw, 55px); white-space: nowrap;">
@@ -664,81 +987,72 @@
           <path d="M0 20H85M85 20L70 5M85 20L70 35" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </div>
-      <div class="quotebox expanded" id="quotation-tool">
-        <h3 class="dc" id="toggle-services">COTIZADOR DE PRECIOS POR SERVICIOS</h3>
+      <div class="quotebox" id="quotation-tool">
+        <h3 class="dc" id="toggle-services">SOLICITAR COTIZACIÓN DE SERVICIOS</h3>
         <p class="toggle-hint dc"><i>→</i> Dale clic al triángulo amarillo para ver el abanico de servicios <i>☝</i></p>
         <div class="service-list" id="service-list">
           <label class="service-item">
-            <input type="checkbox" data-price="437" class="svc-check">
+            <input type="checkbox" data-price="0" class="svc-check">
             <div class="service-info">
               <span class="service-name">Mantenimiento Preventivo</span>
-              <span class="service-price">S/ 437</span>
             </div>
           </label>
           <label class="service-item">
-            <input type="checkbox" data-price="150" class="svc-check">
+            <input type="checkbox" data-price="0" class="svc-check">
             <div class="service-info">
               <span class="service-name">Cambio de Aceite</span>
-              <span class="service-price">S/ 150</span>
             </div>
           </label>
           <label class="service-item">
-            <input type="checkbox" data-price="80" class="svc-check">
+            <input type="checkbox" data-price="0" class="svc-check">
             <div class="service-info">
               <span class="service-name">Scanner Multimarca</span>
-              <span class="service-price">S/ 80</span>
             </div>
           </label>
           <label class="service-item">
-            <input type="checkbox" data-price="120" class="svc-check">
+            <input type="checkbox" data-price="0" class="svc-check">
             <div class="service-info">
               <span class="service-name">Limpieza de Inyectores</span>
-              <span class="service-price">S/ 120</span>
             </div>
           </label>
           <label class="service-item">
-            <input type="checkbox" data-price="180" class="svc-check">
+            <input type="checkbox" data-price="0" class="svc-check">
             <div class="service-info">
               <span class="service-name">Revisión de Frenos</span>
-              <span class="service-price">S/ 180</span>
             </div>
           </label>
           <label class="service-item">
-            <input type="checkbox" data-price="250" class="svc-check">
+            <input type="checkbox" data-price="0" class="svc-check">
             <div class="service-info">
               <span class="service-name">Suspensión y Dirección</span>
-              <span class="service-price">S/ 250</span>
             </div>
           </label>
           <label class="service-item">
-            <input type="checkbox" data-price="100" class="svc-check">
+            <input type="checkbox" data-price="0" class="svc-check">
             <div class="service-info">
               <span class="service-name">Sistema Eléctrico</span>
-              <span class="service-price">S/ 100</span>
             </div>
           </label>
           <label class="service-item">
-            <input type="checkbox" data-price="350" class="svc-check">
+            <input type="checkbox" data-price="0" class="svc-check">
             <div class="service-info">
               <span class="service-name">Planchado y Pintura</span>
-              <span class="service-price">S/ 350</span>
             </div>
           </label>
         </div>
         
-        <div class="quote-total">
-          <span class="total-label">Inversión Estimada</span>
-          <span class="total-amount" id="total-price">S/ 0</span>
+        <div class="quote-info-note">
+          <span>Selecciona los servicios que deseas y solicita tu cotización personalizada al instante.</span>
         </div>
         
-        <a href="#" class="btn-quote dc" id="send-wa">Confirmar por WhatsApp</a>
+        <a href="#" class="btn-quote dc" id="send-wa">Solicitar Cotización por WhatsApp</a>
       </div>
     </div>
 
     <div class="video-col">
       <div class="video-wrapper">
         <video autoplay muted loop playsinline>
-          <source src="https://assets.mixkit.co/videos/preview/mixkit-car-mechanic-working-on-a-car-engine-4364-large.mp4" type="video/mp4">
+          <source src="./images/video-hilton-corto.mp4" type="video/mp4">
         </video>
       </div>
     </div>
@@ -785,6 +1099,41 @@
     </div>
   </div>
 
+  <!-- SECCIÓN TRABAJOS REALES DE ALTA GAMA (GALERÍA DE AUTORIDAD) -->
+  <section class="gallery-section" id="galeria-taller">
+    <div class="section-header">
+      <h2 class="dc">TRABAJOS <span style="color:var(--primary)">REALES</span> EN TALLER</h2>
+      <p style="font-size: 15px; color: var(--gray); font-weight: 300; margin-top: 15px; text-transform: uppercase; letter-spacing: 1.5px;">
+        Vehículos de alta gama que confían en nuestra experiencia y tecnología
+      </p>
+      <div class="line" style="margin-top: 20px;"></div>
+    </div>
+    
+    <div class="gallery-grid">
+      <div class="gallery-card">
+        <span class="gallery-badge">Mecánica Avanzada</span>
+        <div class="gallery-img-wrapper">
+          <img src="./images/taller-hilton-camioneta.jpeg" alt="Mantenimiento Hummer H3 en Taller Hilton">
+        </div>
+        <div class="gallery-info">
+          <h4 class="dc">Diagnóstico de Hummer H3</h4>
+          <p>Inspección integral de motor y electrónica avanzada. Garantizamos el rendimiento de vehículos pesados y de alta cilindrada con escaneo computarizado.</p>
+        </div>
+      </div>
+      
+      <div class="gallery-card">
+        <span class="gallery-badge">Tecnología de Punta</span>
+        <div class="gallery-img-wrapper">
+          <img src="./images/taller-hilton-cambio.jpeg" alt="Cambio de Aceite Jetour en Taller Hilton">
+        </div>
+        <div class="gallery-info">
+          <h4 class="dc">Cambio de Aceite Jetour</h4>
+          <p>Servicio de mantenimiento preventivo y succión al vacío limpia de lubricantes. Prolongamos la vida útil de tu motor con filtros y marcas de aceite premium.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="services-section" id="servicios">
     <div class="section-header">
       <h2 class="dc">NUESTROS <span style="color:var(--primary)">SERVICIOS</span></h2>
@@ -795,22 +1144,73 @@
       <div class="service-card">
         <h4 class="dc">Electrónica</h4>
         <p>Diagnóstico electrónico avanzado de 12v a 24v para todo tipo de vehículos.</p>
-        <div class="price-tag">S/ 80.00</div>
+        <a href="#quotation-tool" class="price-tag" style="text-decoration: none; display: inline-block;">COTIZAR</a>
       </div>
       <div class="service-card">
         <h4 class="dc">Repuestos</h4>
         <p>Venta de repuestos, lubricantes y accesorios originales de las mejores marcas.</p>
-        <div class="price-tag">Consultar stock</div>
+        <a href="#contacto" class="price-tag" style="text-decoration: none; display: inline-block;">CONSULTAR</a>
       </div>
       <div class="service-card">
         <h4 class="dc">Mecánica</h4>
         <p>Mecánica en general, frenos, suspensión y reparaciones de motor garantizadas.</p>
-        <div class="price-tag">Desde S/ 100</div>
+        <a href="#quotation-tool" class="price-tag" style="text-decoration: none; display: inline-block;">COTIZAR</a>
       </div>
       <div class="service-card">
         <h4 class="dc">Lubricantes</h4>
         <p>Cambio de aceite y filtros con productos de alta gama para mayor vida útil.</p>
-        <div class="price-tag">S/ 150.00</div>
+        <a href="#quotation-tool" class="price-tag" style="text-decoration: none; display: inline-block;">COTIZAR</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="testimonials-section" id="clientes">
+    <div class="section-header">
+      <h2 class="dc">CLIENTES <span style="color:var(--primary)">SATISFECHOS</span></h2>
+      <div class="line"></div>
+    </div>
+    
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div>
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">"Excelente servicio de escaneo y electrónica automotriz. Solucionaron una falla que en otros talleres no encontraban. Sumamente recomendados y con equipos modernos."</p>
+        </div>
+        <div class="testimonial-profile">
+          <div class="testimonial-avatar">CM</div>
+          <div class="testimonial-meta">
+            <span class="testimonial-author">Carlos Mendoza</span>
+            <span class="testimonial-vehicle">Toyota Hilux</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="testimonial-card">
+        <div>
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">"Hice el cambio de aceite y mantenimiento preventivo. La atención fue rapidísima, el taller impecable y el personal muy honesto y profesional en todo momento."</p>
+        </div>
+        <div class="testimonial-profile">
+          <div class="testimonial-avatar">SU</div>
+          <div class="testimonial-meta">
+            <span class="testimonial-author">Sofía Ugarte</span>
+            <span class="testimonial-vehicle">Jetour X70</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="testimonial-card">
+        <div>
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">"Llevé mi camioneta para un diagnóstico completo de motor. Tienen tecnología de punta y el trato de Hilton y su equipo es de primerísimo nivel. Garantía absoluta."</p>
+        </div>
+        <div class="testimonial-profile">
+          <div class="testimonial-avatar">MR</div>
+          <div class="testimonial-meta">
+            <span class="testimonial-author">Mauricio Rivas</span>
+            <span class="testimonial-vehicle">Hummer H3</span>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -853,38 +1253,33 @@
       </div>
     </div>
     <div class="copy">
-      &copy; 2026 Automotriz Hiltón. San Juan de Lurigancho, Lima.
+      &copy; 2010 Automotriz Hiltón. San Juan de Lurigancho, Lima.
     </div>
   </footer>
 
   <script>
     // Cotizador Logic
     const checks = document.querySelectorAll('.svc-check');
-    const totalDisplay = document.getElementById('total-price');
     const waBtn = document.getElementById('send-wa');
     const toggleBtn = document.getElementById('toggle-services');
     const quotebox = document.querySelector('.quotebox');
     const serviceList = document.getElementById('service-list');
 
     function updateTotal() {
-      let total = 0;
       let selectedServices = [];
       
       checks.forEach(cb => {
         if (cb.checked) {
-          total += parseInt(cb.getAttribute('data-price'));
           selectedServices.push(cb.closest('.service-item').querySelector('.service-name').innerText);
         }
       });
-
-      totalDisplay.innerText = `S/ ${total}`;
       
       // Update WA Link message
       if (selectedServices.length > 0) {
         const message = encodeURIComponent(
-          `¡Hola Automotriz Hiltón! 👋\n\nHe cotizado estos servicios en su web:\n\n` + 
+          `¡Hola Automotriz Hiltón! 👋\n\nHe seleccionado estos servicios en su web para cotizar:\n\n` + 
           selectedServices.map(s => `✅ ${s}`).join('\n') + 
-          `\n\n*Total Estimado: S/ ${total}*\n\n¿Me podrían dar una cita?`
+          `\n\n¿Me podrían brindar los precios y disponibilidad de cita?`
         );
         waBtn.onclick = (e) => {
           e.preventDefault();
@@ -893,7 +1288,7 @@
       } else {
         waBtn.onclick = (e) => {
           e.preventDefault();
-          window.open("https://wa.me/51972048074?text=" + encodeURIComponent("¡Hola Automotriz Hiltón! 👋 Quisiera información sobre sus servicios."));
+          window.open("https://wa.me/51972048074?text=" + encodeURIComponent("¡Hola Automotriz Hiltón! 👋 Quisiera cotizar servicios para mi auto."));
         };
       }
     }
@@ -903,15 +1298,6 @@
     // Toggle Services Accordion
     toggleBtn.addEventListener('click', () => {
       quotebox.classList.toggle('expanded');
-      if (quotebox.classList.contains('expanded')) {
-        serviceList.style.maxHeight = "250px";
-        serviceList.style.opacity = "1";
-        serviceList.style.pointerEvents = "all";
-      } else {
-        serviceList.style.maxHeight = "0";
-        serviceList.style.opacity = "0";
-        serviceList.style.pointerEvents = "none";
-      }
     });
 
     // CTA Buttons logic: Scroll and Expand
