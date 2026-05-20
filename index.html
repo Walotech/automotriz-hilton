@@ -1101,7 +1101,7 @@
       }
       
       .hero { 
-        padding-top: 70px; 
+        padding-top: 65px; 
         display: flex; 
         flex-direction: column; 
         text-align: center; 
@@ -1115,7 +1115,7 @@
       .hero-title { 
         order: 2; 
         margin-top: 0 !important;
-        margin-bottom: 2px;
+        margin-bottom: 0;
         width: 100%;
       }
       
@@ -1169,31 +1169,53 @@
         margin-bottom: 0;
       }
 
-      .video-col { 
-        order: 4; 
-        margin-top: 0; 
-        padding-top: 0;
-        width: 100%; 
-        max-width: 280px; 
-        display: flex; 
-        justify-content: center; 
+      /* VIDEO + STATS SIDE BY SIDE */
+      .video-stats-row {
+        order: 4;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        width: 100%;
+        margin-top: 5px;
+        padding: 0 10px;
       }
-      
+
       .stats-bar-hero { 
-        order: 5; 
-        margin-top: 35px; 
-        width: 100%; 
-        gap: 25px;
-        flex-wrap: wrap;
+        order: 1;
+        flex-direction: column;
+        gap: 15px;
+        margin-top: 0;
+        width: auto;
+        flex-shrink: 0;
       }
       
+      .stat-item-hero {
+        text-align: center;
+      }
+
       .stat-item-hero .stat-num {
-        font-size: 32px;
+        font-size: 22px;
+        line-height: 1;
       }
       
       .stat-item-hero .stat-lbl {
-        font-size: 9px;
-        letter-spacing: 1px;
+        font-size: 7px;
+        letter-spacing: 0.8px;
+        line-height: 1.2;
+        max-width: 65px;
+      }
+
+      .video-col { 
+        order: 2;
+        margin-top: 0; 
+        padding-top: 0;
+        width: auto;
+        flex: 1;
+        max-width: 280px; 
+        display: flex; 
+        justify-content: center; 
       }
 
       .mascot-col { display: none; }
@@ -1350,32 +1372,33 @@
       </div>
     </div>
 
-    <div class="video-col">
-      <div class="video-wrapper">
-        <video autoplay muted loop playsinline>
-          <source src="./images/video-hilton-corto.mp4" type="video/mp4">
-        </video>
+    <div class="video-stats-row">
+      <div class="stats-bar-hero">
+        <div class="stat-item-hero">
+          <div class="stat-num dc">10<span>+</span></div>
+          <div class="stat-lbl">Años de Trayectoria</div>
+        </div>
+        <div class="stat-item-hero">
+          <div class="stat-num dc">1.5<span>K</span></div>
+          <div class="stat-lbl">Clientes Satisfechos</div>
+        </div>
+        <div class="stat-item-hero">
+          <div class="stat-num dc">24<span>V</span></div>
+          <div class="stat-lbl">Scaneo Multimarca</div>
+        </div>
+      </div>
+      <div class="video-col">
+        <div class="video-wrapper">
+          <video autoplay muted loop playsinline>
+            <source src="./images/video-hilton-corto.mp4" type="video/mp4">
+          </video>
+        </div>
       </div>
     </div>
 
     <div class="mascot-col">
       <div class="mascot-container">
         <img src="./images/hilton-mascot-v5.png" alt="Mascota Hilton" onerror="this.style.display='none'">
-      </div>
-    </div>
-    
-    <div class="stats-bar-hero">
-      <div class="stat-item-hero">
-        <div class="stat-num dc">10<span>+</span></div>
-        <div class="stat-lbl">Años de Trayectoria</div>
-      </div>
-      <div class="stat-item-hero">
-        <div class="stat-num dc">1.5<span>K</span></div>
-        <div class="stat-lbl">Clientes Satisfechos</div>
-      </div>
-      <div class="stat-item-hero">
-        <div class="stat-num dc">24<span>V</span></div>
-        <div class="stat-lbl">Scaneo Multimarca</div>
       </div>
     </div>
   </section>
