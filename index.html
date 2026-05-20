@@ -54,6 +54,16 @@
       letter-spacing: -0.05em;
     }
 
+    .hero-main-heading {
+      font-family: 'Inter', sans-serif;
+      font-weight: 900;
+      text-transform: uppercase;
+      line-height: 0.9;
+      letter-spacing: -0.05em;
+      font-size: clamp(30px, 4vw, 55px);
+      white-space: nowrap;
+    }
+
     /* HEADER */
     header {
       position: fixed;
@@ -71,6 +81,12 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+    }
+
+    .logo-container {
+      display: flex;
+      flex-direction: column;
+      min-width: 250px;
     }
 
     .logo {
@@ -107,6 +123,38 @@
       margin-top: 12px;
       opacity: 0.6;
       font-weight: 400;
+    }
+
+    .header-cta-container {
+      min-width: 200px;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .mobile-menu-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 26px;
+      height: 18px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      z-index: 1100;
+      outline: none;
+    }
+
+    .hamburger-bar {
+      width: 100%;
+      height: 3px;
+      background-color: var(--white);
+      border-radius: 2px;
+      transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    .mobile-only-cta {
+      display: none;
     }
 
     .nav-links {
@@ -908,6 +956,139 @@
 
     /* RESPONSIVE */
     @media (max-width: 900px) {
+      /* HEADER RESPONSIVE */
+      nav {
+        padding: 10px 5%;
+      }
+
+      .logo-container {
+        min-width: auto;
+        flex: 1;
+      }
+
+      .logo {
+        font-size: clamp(20px, 5.5vw, 24px);
+        justify-content: flex-start;
+        margin-bottom: 2px;
+      }
+
+      .logo::after {
+        bottom: -5px;
+      }
+
+      .seo-keywords {
+        font-size: 7px;
+        letter-spacing: 0.8px;
+        margin-top: 6px;
+        text-align: left;
+      }
+
+      .header-cta-container {
+        display: none;
+      }
+
+      /* MOBILE MENU HAMBURGER & PANEL */
+      .mobile-menu-toggle {
+        display: flex;
+      }
+
+      .mobile-only-cta {
+        display: block;
+        width: 100%;
+        margin-top: 15px;
+      }
+      
+      .mobile-only-cta .ncta {
+        display: inline-block;
+        width: 100%;
+        text-align: center;
+        padding: 14px 20px;
+        font-size: 13px;
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+      }
+
+      .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 75%;
+        max-width: 300px;
+        height: 100vh;
+        background: rgba(8, 8, 8, 0.98);
+        backdrop-filter: blur(25px);
+        -webkit-backdrop-filter: blur(25px);
+        border-left: 1px solid var(--border);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 25px;
+        transition: right 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        z-index: 1050;
+        box-shadow: -10px 0 40px rgba(0,0,0,0.8);
+        padding: 60px 30px;
+      }
+
+      .nav-links.active {
+        right: 0;
+      }
+
+      .nav-links li {
+        width: 100%;
+        text-align: center;
+      }
+
+      .nav-links a {
+        font-size: 14px;
+        font-weight: 800;
+        letter-spacing: 1.5px;
+        display: block;
+        padding: 8px 0;
+        color: var(--white);
+      }
+
+      .nav-triangle {
+        display: inline-block;
+        font-size: 9px;
+        margin-top: 0;
+      }
+
+      /* Dropdown on mobile */
+      .dropdown-menu {
+        position: static;
+        transform: none;
+        width: 100%;
+        opacity: 1;
+        visibility: visible;
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        padding: 0;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s ease;
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+      }
+
+      .dropdown.active .dropdown-menu {
+        max-height: 250px;
+        margin-top: 10px;
+      }
+
+      .dropdown-menu a {
+        font-size: 11px;
+        color: var(--gray) !important;
+        text-align: center;
+        padding: 6px 0;
+      }
+      
+      .dropdown-menu a:hover {
+        padding-left: 0;
+        background: transparent !important;
+      }
+
+      /* HERO RESPONSIVE */
       .cta-pointer {
         left: 50%;
         top: -60px;
@@ -918,16 +1099,133 @@
         left: 50%;
         top: -80px;
       }
-      .hero { padding-top: 120px; display: flex; flex-direction: column; text-align: center; align-items: center; }
-      .expert-text { order: 1; grid-column: auto; grid-row: auto; justify-content: center; }
-      .hero-title { order: 2; }
-      .hero-content { order: 3; }
+      
+      .hero { 
+        padding-top: 110px; 
+        display: flex; 
+        flex-direction: column; 
+        text-align: center; 
+        align-items: center; 
+      }
+      
+      .expert-text { 
+        order: 1; 
+        grid-column: auto; 
+        grid-row: auto; 
+        justify-content: center; 
+        text-align: center;
+        margin: 5px auto 15px;
+        font-size: 10px;
+        line-height: 1.4;
+      }
+      
+      .hero-title { 
+        order: 2; 
+        margin-bottom: 10px;
+        width: 100%;
+      }
+      
+      .hero-main-heading {
+        font-size: clamp(22px, 6vw, 32px);
+        white-space: normal !important;
+        line-height: 1.2;
+        padding: 0 10px;
+      }
+
+      .hero-content { 
+        order: 3; 
+        width: 100%;
+        max-width: 450px;
+      }
+      
       .hero-content p { border: none; padding: 0; }
-      .video-col { order: 4; margin-top: 30px; width: 100%; max-width: 280px; display: flex; justify-content: center; }
-      .stats-bar-hero { order: 5; margin-top: 40px; width: 100%; }
+      
+      /* COTIZADOR RESPONSIVE */
+      .quotebox {
+        padding: 24px 20px;
+        border-radius: 12px;
+      }
+      
+      .quotebox h3 {
+        font-size: 16px;
+      }
+
+      .toggle-hint {
+        font-size: 11px;
+      }
+      
+      .service-item {
+        padding: 13px 15px;
+      }
+      
+      .service-name {
+        font-size: 12px;
+      }
+
+      .quote-info-note {
+        padding: 10px 14px;
+        margin-bottom: 15px;
+      }
+      
+      .quote-info-note span {
+        font-size: 10px;
+      }
+
+      .btn-quote {
+        padding: 15px;
+        font-size: 14px;
+      }
+
+      .video-col { 
+        order: 4; 
+        margin-top: 30px; 
+        width: 100%; 
+        max-width: 250px; 
+        display: flex; 
+        justify-content: center; 
+      }
+      
+      .stats-bar-hero { 
+        order: 5; 
+        margin-top: 35px; 
+        width: 100%; 
+        gap: 25px;
+        flex-wrap: wrap;
+      }
+      
+      .stat-item-hero .stat-num {
+        font-size: 32px;
+      }
+      
+      .stat-item-hero .stat-lbl {
+        font-size: 9px;
+        letter-spacing: 1px;
+      }
+
       .mascot-col { display: none; }
-      .logo { font-size: 28px; justify-content: center; }
       .footer-grid { text-align: center; }
+      
+      /* WHATSAPP FLOAT MOBILE */
+      .whatsapp-float {
+        bottom: 20px;
+        right: 20px;
+        padding: 14px;
+        border-radius: 50%;
+        width: 56px;
+        height: 56px;
+        justify-content: center;
+        box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4);
+      }
+      
+      .whatsapp-float span {
+        display: none;
+      }
+      
+      .whatsapp-float img {
+        margin: 0;
+        width: 28px;
+        height: 28px;
+      }
     }
   </style>
 </head>
@@ -936,7 +1234,7 @@
 
   <header>
     <nav>
-      <div style="display: flex; flex-direction: column; min-width: 250px;">
+      <div class="logo-container">
         <a href="#" class="logo dc">
           <span class="white-text">AUTOMOTRIZ</span> <span class="hilton">HILTÓN</span>
         </a>
@@ -944,6 +1242,14 @@
           Mecánica General • Electrónica • Repuestos • Scaneo
         </div>
       </div>
+      
+      <!-- Botón de Menú Hamburguesa en Móvil -->
+      <button class="mobile-menu-toggle" id="menu-toggle" aria-label="Abrir menú">
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+      </button>
+
       <ul class="nav-links">
         <li><a href="#hero">Inicio</a></li>
         <li class="dropdown">
@@ -962,8 +1268,9 @@
         </li>
         <li><a href="#clientes">Clientes</a></li>
         <li><a href="#contacto">Contacto</a></li>
+        <li class="mobile-only-cta"><a href="#quotation-tool" class="ncta dc">Cotizar Servicios</a></li>
       </ul>
-      <div style="min-width: 200px; display: flex; justify-content: flex-end;">
+      <div class="header-cta-container">
         <a href="#quotation-tool" class="ncta dc" id="nav-quote-btn">Cotizar Precios de Servicios</a>
       </div>
     </nav>
@@ -976,7 +1283,7 @@
       <span>Expertos en electrónica automotriz<br>y mecánica general multimarca.<br>Tecnología de punta para tu auto.</span>
     </div>
     <div class="hero-title">
-      <h1 class="dc" style="font-size: clamp(30px, 4vw, 55px); white-space: nowrap;">
+      <h1 class="dc hero-main-heading">
         MECÁNICA DE ALTO <span id="rotate" style="color:var(--primary); text-shadow: 0 0 20px var(--primary-glow);">NIVEL</span>
       </h1>
     </div>
@@ -1322,6 +1629,59 @@
 
     navQuoteBtn.addEventListener('click', handleCtaClick);
     floatWaBtn.addEventListener('click', handleCtaClick);
+
+    const mobileCtaLink = document.querySelector('.mobile-only-cta a');
+    if (mobileCtaLink) {
+      mobileCtaLink.addEventListener('click', handleCtaClick);
+    }
+
+    // Mobile Hamburger Menu Toggle
+    const menuToggle = document.getElementById('menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    const dropdownItem = document.querySelector('.nav-links .dropdown');
+
+    if (menuToggle && navLinks) {
+      menuToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        menuToggle.classList.toggle('active');
+        navLinks.classList.toggle('active');
+      });
+
+      // Close menu when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!navLinks.contains(e.target) && !menuToggle.contains(e.target)) {
+          menuToggle.classList.remove('active');
+          navLinks.classList.remove('active');
+        }
+      });
+
+      // Close menu when clicking a link
+      const links = navLinks.querySelectorAll('a');
+      links.forEach(link => {
+        link.addEventListener('click', (e) => {
+          // If it's the dropdown trigger on mobile, do not close the menu
+          if (link.closest('.nav-item-wrap') && window.innerWidth <= 900) {
+            return;
+          }
+          menuToggle.classList.remove('active');
+          navLinks.classList.remove('active');
+        });
+      });
+      
+      // Mobile Dropdown click toggle
+      if (dropdownItem) {
+        const dropdownTrigger = dropdownItem.querySelector('.nav-item-wrap');
+        if (dropdownTrigger) {
+          dropdownTrigger.addEventListener('click', (e) => {
+            if (window.innerWidth <= 900) {
+              e.preventDefault();
+              e.stopPropagation();
+              dropdownItem.classList.toggle('active');
+            }
+          });
+        }
+      }
+    }
 
     // Rotating text logic
     const words = ["NIVEL", "PRESTIGIO", "CALIDAD", "CONFIANZA", "GARANTÍA"];
