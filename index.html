@@ -1147,6 +1147,7 @@
         padding: 15px 16px 8px 16px;
         border-radius: 12px;
         margin-bottom: 0;
+        scroll-margin-top: 145px;
       }
       
       .quotebox h3 {
@@ -1649,7 +1650,8 @@
       
       // 1. Calculate stable scroll position BEFORE layout changes
       const element = document.getElementById('quotation-tool');
-      const yOffset = -70; // Stop exactly 70px before the card (perfect layout spacing)
+      const isMobile = window.innerWidth <= 900;
+      const yOffset = isMobile ? -145 : -70; // Stop 145px before on mobile (taller header), 70px on desktop
       const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
       
       // 2. Expand if closed
