@@ -1136,6 +1136,7 @@
         width: 100%;
         max-width: 450px;
         gap: 0;
+        margin-top: -12px;
       }
       
       .hero-content p { border: none; padding: 0; }
@@ -1180,20 +1181,24 @@
         flex-direction: row;
         align-items: center;
         justify-content: center;
-        gap: 12px;
-        width: calc(100% + 20px);
+        width: 100%;
         margin-top: -15px;
-        margin-left: -20px;
-        padding: 0 10px;
+        position: relative;
       }
 
       .stats-bar-hero { 
         order: 1;
+        position: absolute;
+        left: 12px;
+        top: 55%;
+        transform: translateY(-50%);
+        z-index: 10;
         flex-direction: column;
         gap: 15px;
         margin-top: 0;
         width: auto;
         flex-shrink: 0;
+        pointer-events: none;
       }
       
       .stat-item-hero {
@@ -1216,8 +1221,7 @@
         order: 2;
         margin-top: 0; 
         padding-top: 0;
-        width: auto;
-        flex: 1;
+        width: 100%;
         max-width: 280px; 
         display: flex; 
         justify-content: center; 
@@ -1228,14 +1232,18 @@
       
       /* WHATSAPP FLOAT MOBILE */
       .whatsapp-float {
-        bottom: 20px;
-        right: 20px;
-        padding: 14px;
+        position: absolute;
+        top: 35px;
+        left: 20px;
+        bottom: auto;
+        right: auto;
+        padding: 12px;
         border-radius: 50%;
-        width: 56px;
-        height: 56px;
+        width: 48px;
+        height: 48px;
         justify-content: center;
         box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4);
+        z-index: 100;
       }
       
       .whatsapp-float span {
@@ -1244,8 +1252,8 @@
       
       .whatsapp-float img {
         margin: 0;
-        width: 28px;
-        height: 28px;
+        width: 24px;
+        height: 24px;
       }
     }
   </style>
@@ -1378,6 +1386,12 @@
     </div>
 
     <div class="video-stats-row">
+      <!-- Botón de WhatsApp Móvil arriba de los números -->
+      <a href="#quotation-tool" class="whatsapp-float" id="float-wa-btn">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+        <span>COTIZA NUESTROS SERVICIOS</span>
+      </a>
+
       <div class="stats-bar-hero">
         <div class="stat-item-hero">
           <div class="stat-num dc">10<span>+</span></div>
@@ -1407,11 +1421,6 @@
       </div>
     </div>
   </section>
-
-  <a href="#quotation-tool" class="whatsapp-float" id="float-wa-btn">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
-    <span>COTIZA NUESTROS SERVICIOS</span>
-  </a>
 
   <div class="stats-bar">
     <div class="stat-item">
