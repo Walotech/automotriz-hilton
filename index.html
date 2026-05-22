@@ -362,6 +362,7 @@
       box-shadow: 0 30px 60px rgba(0,0,0,0.6);
       position: relative;
       overflow: hidden;
+      scroll-margin-top: 70px;
     }
 
     .quotebox::before {
@@ -1297,10 +1298,10 @@
         </li>
         <li><a href="#clientes">Clientes</a></li>
         <li><a href="#contacto">Contacto</a></li>
-        <li class="mobile-only-cta"><a href="#quotation-tool" class="ncta dc">Cotizar Servicios</a></li>
+        <li class="mobile-only-cta"><a href="#" class="ncta dc">Cotizar Servicios</a></li>
       </ul>
       <div class="header-cta-container">
-        <a href="#quotation-tool" class="ncta dc" id="nav-quote-btn">Cotizar Precios de Servicios</a>
+        <a href="#" class="ncta dc" id="nav-quote-btn">Cotizar Precios de Servicios</a>
       </div>
     </nav>
   </header>
@@ -1387,7 +1388,7 @@
 
     <div class="video-stats-row">
       <!-- Botón de WhatsApp Móvil arriba de los números -->
-      <a href="#quotation-tool" class="whatsapp-float" id="float-wa-btn">
+      <a href="#" class="whatsapp-float" id="float-wa-btn">
         <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
         <span>COTIZA NUESTROS SERVICIOS</span>
       </a>
@@ -1644,18 +1645,29 @@
     const ctaPointer = document.getElementById('cta-pointer');
 
     function handleCtaClick(e) {
-      // Expand if closed
-      if (!quotebox.classList.contains('expanded')) {
+      e.preventDefault();
+      
+      // 1. Calculate stable scroll position BEFORE layout changes
+      const element = document.getElementById('quotation-tool');
+      const yOffset = -70; // Stop exactly 70px before the card (perfect layout spacing)
+      const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      
+      // 2. Expand if closed
+      const isClosed = !quotebox.classList.contains('expanded');
+      if (isClosed) {
         toggleBtn.click();
       }
       
-      // Show pointer
+      // 3. Show pointer
       ctaPointer.classList.add('active');
-      
-      // Hide after 5 seconds
       setTimeout(() => {
         ctaPointer.classList.remove('active');
       }, 5000);
+
+      // 4. Scroll smoothly to the pre-calculated stable position
+      setTimeout(() => {
+        window.scrollTo({top: y, behavior: 'smooth'});
+      }, 50);
     }
 
     navQuoteBtn.addEventListener('click', handleCtaClick);
