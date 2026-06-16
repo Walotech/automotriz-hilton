@@ -1095,14 +1095,33 @@
 
       /* HERO RESPONSIVE */
       .cta-pointer {
-        left: 50%;
-        top: -60px;
-        transform: translateX(-50%) rotate(90deg);
+        left: auto;
+        right: -200px;
+        top: 50%;
+        transform: translateY(-50%);
         flex-direction: row-reverse;
+        opacity: 0;
+        pointer-events: none;
+        transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       }
       .cta-pointer.active {
-        left: 50%;
-        top: -80px;
+        opacity: 1;
+        left: auto;
+        right: 15px;
+      }
+      .cta-pointer span {
+        font-size: 12px;
+        padding: 6px 12px;
+        border-radius: 6px;
+      }
+      .cta-pointer svg {
+        width: 45px;
+        height: 25px;
+        animation: pointMoveMobile 1s infinite alternate;
+      }
+      @keyframes pointMoveMobile {
+        from { transform: scaleX(-1) translateX(0); }
+        to { transform: scaleX(-1) translateX(10px); }
       }
       
       .hero { 
@@ -1234,18 +1253,18 @@
       
       /* WHATSAPP FLOAT MOBILE */
       .whatsapp-float {
-        position: absolute;
-        top: 35px;
-        left: 4px;
-        bottom: auto;
-        right: auto;
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        top: auto;
+        left: auto;
         padding: 12px;
         border-radius: 50%;
-        width: 48px;
-        height: 48px;
+        width: 50px;
+        height: 50px;
         justify-content: center;
         box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4);
-        z-index: 100;
+        z-index: 1000;
       }
       
       .whatsapp-float span {
