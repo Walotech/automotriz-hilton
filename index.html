@@ -1408,12 +1408,6 @@
     </div>
 
     <div class="video-stats-row">
-      <!-- Botón de WhatsApp Móvil arriba de los números -->
-      <a href="#" class="whatsapp-float" id="float-wa-btn">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
-        <span>COTIZA NUESTROS SERVICIOS</span>
-      </a>
-
       <div class="stats-bar-hero">
         <div class="stat-item-hero">
           <div class="stat-num dc">10<span>+</span></div>
@@ -1616,6 +1610,12 @@
       &copy; 2010 Automotriz Hiltón. San Juan de Lurigancho, Lima.
     </div>
   </footer>
+
+  <!-- Botón de WhatsApp flotante raíz (evita aislamiento de stacking context) -->
+  <a href="#" class="whatsapp-float" id="float-wa-btn">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+    <span>COTIZA NUESTROS SERVICIOS</span>
+  </a>
 
   <script>
     // Cotizador Logic
