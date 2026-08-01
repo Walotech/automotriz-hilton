@@ -1660,6 +1660,9 @@
       quotebox.classList.toggle('expanded');
     });
 
+    // Auto-expand services on page load (abanico abierto por defecto)
+    quotebox.classList.add('expanded');
+
     // CTA Buttons logic: Scroll and Expand
     const navQuoteBtn = document.getElementById('nav-quote-btn');
     const floatWaBtn = document.getElementById('float-wa-btn');
